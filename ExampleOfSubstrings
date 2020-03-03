@@ -1,0 +1,80 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.IO;
+
+namespace CICSPROJECT
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            (new FileHandler()).InputTextFile();
+        }
+    }
+
+    class FileHandler
+    {
+        public ArrayList a1 = new ArrayList();
+            
+        DataRecord dr;
+        // TODO: create a Class to be the ADT for one line of input text
+        // TODO: implement the convertLineToObject method
+        // use sub string methods to walk over each line
+        // character by character
+        // when you find a comma, take the segment between the current
+        // and previous comma and store store that in your ADT
+        public void convertLineToObject(String a)
+        {
+            int positionInString = 0;
+            int LengthOfString = a.Length;
+
+            while (positionInString < a.Length)
+            {
+                if ((a[positionInString++]).Equals(',')){
+                    Console.WriteLine("comma found at position {0}", positionInString);
+                }
+
+            }
+            
+        }
+        public void substring_example_code()
+        {
+            using System;
+
+class SubStringExampleCode
+        {
+
+                string input = "OneTwoThree";
+
+                // Get first three characters.
+                string sub = input.Substring(0, 3);
+                Console.WriteLine("Substring: {0}", sub);
+        }
+    }
+        public void InputTextFile()
+        {
+            dr = new DataRecord();
+            int counter = 0;
+            string line;
+            // Read the file and display it line by line.  
+            System.IO.StreamReader file =
+                new System.IO.StreamReader(@"C:\Users\HP\Dropbox\Academic_Desk\2020.01.WINTER\Days_Database\2020.03.03\CSD3354_1\AJAX.csv");
+            while ((line = file.ReadLine()) != null)
+            {
+                convertLineToObject(line);
+                counter++;
+                Console.WriteLine("line number {0}", counter);
+            }
+            a1.Add(dr);
+            file.Close();
+            System.Console.WriteLine("There were {0} lines.", counter);
+            // Suspend the screen.  
+            System.Console.ReadLine();
+        }
+    }
+
+}
