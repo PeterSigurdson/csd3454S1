@@ -1,0 +1,7 @@
+Use substring handling to snip out each "Data Frame"
+Put that data frame into a Text String Variable, suppose it is "address"
+Assign to your DR (DataRecord)
+DR.addressField = address
+After you have assigned all data frames to your DR object,
+you put the whole DR Object into the ArrayList object reference a1
+a1.Add(DR)
