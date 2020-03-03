@@ -1,0 +1,161 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+
+namespace CICS
+{
+    class Program
+    {
+        static void Main2(string[] args)
+        {
+            // #TODO: Step 1: Access the ajax.csv and print it out
+            InputTheDatafile file1 = new InputTheDatafile();
+            file1.GetData();
+            // #TODO: Step 2: 1. Implement the method ConvertLineIntoObject by doing string tokenization
+            // 2. Put each data frame into the field of a Data Record Object
+            // 3. Insert the Object into the CICS ArrayList
+            // #TODO: Step 3: Write a Method that will walk over the array, access each Data Record Object, and implement the reporting functionality
+            // specified in the assignment (e.g. average selling price of all detached houses).
+        }
+
+        static void Main(string[] main)
+        {
+            Workbench w = new Workbench();
+            w.initialize();
+            w.iterateOverDataStructure();
+        }
+    }
+
+    class InputTheDatafile
+    {
+        ArrayList CICS = new ArrayList();
+        public void GetData()
+        {
+            int counter = 1;
+            string line;
+
+            // Read the file and display it line by line.  
+            System.IO.StreamReader file =
+                new System.IO.StreamReader(@"C:\Users\HP\Dropbox\Academic_Desk\2020.01.WINTER\CSharpDataStructures1\CICS\AJAX.csv");
+            while ((line = file.ReadLine()) != null)
+            {
+                ConvertLineIntoObject(line);
+                counter++;
+                Console.WriteLine("line number {0}", counter);
+            }
+
+            file.Close();
+            System.Console.WriteLine("There were {0} lines.", counter);
+            // Suspend the screen.  
+            System.Console.ReadLine();
+
+        }
+
+        public void ConvertLineIntoObject(String inputLine)
+        {
+            String a = inputLine;
+            DataRecord dr = new DataRecord();
+            // take inputLine
+            // use substrings to breaks it apart around the commas
+            String addressLine = "";
+            // Assignment #TODO
+            // Extract out the substrings between all the commas and assign them to the appropriate data record fields(DRFs) of the DataRecord object.
+            // Each time you construct a new DataRecord Object, insert it into the CICS Array.
+
+            // code to walk over a string
+            // remember, a string is just an array
+            // find the Data Frames between the commas,
+
+            for (int i = 0; i < a.Length; i++)
+            {
+                if (a[i] == ',')
+                { Console.WriteLine("Found a comma at position {0}", i+1); }
+            }
+
+            dr.FULLADDRESS = addressLine;
+
+            // #TODO You must fully construct each data record object and insert it into the arraylist CICS
+            // Example: 1. You CREATE the DR object 2. you assign all the data frames to it i.e. the text between start of sting 
+            // and the first command is the ADDRESS. You assign this to the Address field of the DR object
+            // once the DR object is fully populated, add it to the CICS ArrayList like this: 
+            CICS.Add(dr);
+        }
+    }
+
+
+    class Workbench
+    {
+        // example of building up a complex data structure by packing Objects of an ADT into an ArrayList
+        // note the need to CAST the object we pull out of the array to its correct TYPE so we can access its properties!
+        ArrayList al = new ArrayList();
+        public void initialize()
+        {
+            al.Add(new Fruit("peach","peach",100));
+            al.Add(new Fruit("orange", "orange", 200));
+            al.Add(new Fruit("banana", "yellow", 100));
+        }
+        public void iterateOverDataStructure()
+        {
+            foreach(var thing in al)
+            {
+                Console.WriteLine(((Fruit)thing).name);
+                // Console.WriteLine(thing.name);
+            }
+        }
+    }
+
+    class Workbench2
+    {
+        // this implements the algorithm of Workbench but using a STACK instead of an ArrayList
+        Stack myStack = new Stack();
+        public void initialize()
+        {
+            myStack.Push(new Fruit("peach", "peach", 100));
+            myStack.Push(new Fruit("orange", "orange", 200));
+            myStack.Push(new Fruit("banana", "yellow", 100));
+        }
+        public void iterateOverDataStructure()
+        {
+            foreach (var thing in myStack)
+            {
+                Console.WriteLine(((Fruit)thing).name);
+                // Console.WriteLine(thing.name);
+            }
+        }
+
+    }
+
+    class Workbench3
+    {
+        // this implements the algorithm of Workbench but using a STACK instead of an ArrayList
+        Queue myQueue = new Queue();
+        public void initialize()
+        {
+            myQueue.Enqueue(new Fruit("peach", "peach", 100));
+            myQueue.Enqueue(new Fruit("orange", "orange", 200));
+            myQueue.Enqueue(new Fruit("banana", "yellow", 100));
+        }
+        public void iterateOverDataStructure()
+        {
+            int counter = 0;
+            for( ;  counter++ <= myQueue.Count; )
+            {
+                Console.WriteLine(((Fruit)myQueue.Dequeue()).name);
+            }
+        }
+
+    }
+
+    class Fruit
+    {
+        public Fruit(string fname, string fcolor, int fcals) {
+            this.color = fcolor;
+            this.name = fname;
+            this.calories = fcals;
+        }
+        public String color;
+        public String name;
+        public int calories;
+
+    }
+}
